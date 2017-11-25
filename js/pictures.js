@@ -1,12 +1,14 @@
+'use strict';
+
 var likesMin = 15;
 var likesMax = 200;
 var variousComments = [
-'Всё отлично!',
-'В целом всё неплохо. Но не всё.',
-'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
 var minComments = 1;
@@ -19,7 +21,7 @@ var getValueInRange = function (min, max) {
   var valueInRange = Math.round(Math.random() * (max - min) + min);
 
   return valueInRange;
-}
+};
 
 var getRandomValues = function (array, min, max) {
   var output = [];
@@ -31,17 +33,17 @@ var getRandomValues = function (array, min, max) {
 
   return output;
 
-}
+};
 
 var generatePhotoLabel = function () {
   photoLabel = {
     url: 'photos/' + [i + 1] + '.jpg',
-    likes: getValueInRange (likesMin, likesMax),
+    likes: getValueInRange(likesMin, likesMax),
     comments: []
-  }
+  };
 
   return photoLabel;
-}
+};
 
 // Create PhotoCards from template
 
@@ -56,7 +58,7 @@ var generateCard = function () {
   photoCard.querySelector('.picture-likes').textContent = photoLabel.likes;
 
   return photoCard;
-}
+};
 
 var galleryOverlay = document.querySelector('.gallery-overlay');
 
@@ -70,7 +72,7 @@ var generateCardInOverlay = function () {
   photoCardInOverlay.querySelector('.gallery-overlay-controls-like').textContent = photoLabel.likes;
 
   return photoCardInOverlay;
-}
+};
 
 // Create fragments
 
