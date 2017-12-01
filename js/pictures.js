@@ -50,26 +50,27 @@ var generatePhotoLabel = function () {
 var template = document.querySelector('template').content;
 var picture = template.querySelector('.picture');
 
-var generateCard = function () {
-  var photoCard = picture.cloneNode(true);
+var generateCard = function (elem) {
+  var photoCardElement = picture.cloneNode(true);
 
-  photoCard.querySelector('img').src = photoLabel.url;
-  photoCard.querySelector('.picture-comments').textContent = photoLabel.comments;
-  photoCard.querySelector('.picture-likes').textContent = photoLabel.likes;
+  photoCardElement.querySelector('img').src = elem.url;
+  photoCardElement.querySelector('.picture-comments').textContent = elem.comments;
+  photoCardElement.querySelector('.picture-likes').textContent = elem.likes;
 
-  return photoCard;
+  return photoCardElement;
 };
 
 var galleryOverlay = document.querySelector('.gallery-overlay');
 
-galleryOverlay.classList.remove('hidden');
+// galleryOverlay.classList.remove('hidden');
 
-var generateCardInOverlay = function () {
+var generateCardInOverlay = function (elem) {
+
   var photoCardInOverlay = galleryOverlay.cloneNode(true);
 
-  photoCardInOverlay.querySelector('.gallery-overlay-image').src = photoLabel.url;
-  photoCardInOverlay.querySelector('.gallery-overlay-controls-comments').textContent = photoLabel.comments;
-  photoCardInOverlay.querySelector('.gallery-overlay-controls-like').textContent = photoLabel.likes;
+  photoCardInOverlay.querySelector('.gallery-overlay-image').src = elem.url;
+  photoCardInOverlay.querySelector('.gallery-overlay-controls-comments').textContent = elem.comments;
+  photoCardInOverlay.querySelector('.gallery-overlay-controls-like').textContent = elem.likes;
 
   return photoCardInOverlay;
 };
@@ -90,13 +91,110 @@ for (var i = 0; i < labelsNumber; i++) {
 
   labels[i] = photoLabel;
 
-  fragmentCard.appendChild(generateCard());
-  fragmentOverlay.appendChild(generateCardInOverlay());
+  fragmentCard.appendChild(generateCard(photoLabel));
+  fragmentOverlay.appendChild(generateCardInOverlay(photoLabel));
 }
+var pictures = fragmentCard.querySelectorAll('.picture');
+var cardsOverlay = fragmentOverlay.querySelectorAll('.gallery-overlay');
 
-var pictures = document.querySelector('.pictures');
+var picturesBlock = document.querySelector('.pictures');
+picturesBlock.appendChild(fragmentCard);
 
-pictures.appendChild(fragmentCard);
-galleryOverlay.appendChild(fragmentOverlay);
+var body = document.querySelector('body');
+body.appendChild(fragmentOverlay);
+
+
+console.log(cardsOverlay);
+
+// Add event listeners on photos
+
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var mapPinsClickHandler = function (evt) {
+  for (var j = 0; j < pictures.length; j++) {
+    if (evt.currentTarget === pictures[j] || evt.keyCode === ENTER_KEYCODE) {
+      cardsOverlay[j].classList.remove('hidden');
+      debugger;
+    }
+
+    if (evt.currentTarget !== pictures[j]) {
+      cardsOverlay[j].classList.add('hidden');
+    }
+  }
+};
+
+pictures[0].addEventListener('click', function () {
+  cardsOverlay[0].classList.remove('hidden');
+});
+
+// for (var j = 0; j < pictures.length; j++) {
+//   pictures[j].addEventListener('click', mapPinsClickHandler);
+
+//   // popupClose = cardsArr[j].querySelector('.popup__close');
+//   // popupClose.addEventListener('click', popupCloseClickHandler);
+//   // popupClose.addEventListener('keydown', popupEnterCloseHandler);
+// }
+
+// if (window.event) {
+//   window.event.returnValue = false;
+// } else {
+//   evt.returnValue = false;
+// return false;
+// }
+
+
+// var photoCards = document.querySelectorAll('.picture');
+
+// var showOverlayClickHandler = function (evt, arrCards, arrOverlay) {
+//   for (var j = 0; j < arrCards.length; j++) {
+//     console.log(arrCards[j].querySelector('img'));
+//     if (evt.target === arrCards[j].querySelector('img')) {
+//       console.log(arrOverlay[j]);
+//       arrOverlay[j].classList.remove('hidden');
+//       return false;
+//     }
+//   }
+// };
+
+// body.addEventListener('click', function (evt) {
+//   showOverlayClickHandler(evt, photoCards, cardsOverlay);
+// })
+
+// console.log(photoCards[1].querySelector('img').getAttribute('src'));
+// console.log(photoCards);
+
+// var fragmentAdd = function (elem, arrLabels) {
+//   console.log(elem);
+//   for (var j = 0; j < arrLabels.length; j++) {
+//     if (elem.querySelector('img').getAttribute('src') === arrLabels[j].url) {
+//       fragmentOverlay.appendChild(generateCardInOverlay(arrLabels[j]));
+//       console.log(fragmentOverlay);
+//       return fragmentOverlay;
+//       // body.insertBefore(fragmentOverlay, galleryOverlay);
+//     }
+//   }
+//   // body.removeChild(galleryOverlay);
+//   // console.log(body);
+//   // return body.insertBefore(fragmentOverlay, templateTag);
+// };
+
+// var showOverlayClickHandler = function (arrCards, arrLabels) {
+//   for (var j = 0; j < arrCards.length; j++) {
+//     arrCards[j].addEventListener('click', function (evt) {
+//       for (var j = 0; j < arrCards.length; j++) {
+//         if (evt.currentTarget === arrCards[j]) {
+//           var x = fragmentAdd(arrCards[j], arrLabels);
+//           console.log(x);
+//           return x;
+//         }
+//       }
+//     })
+//   }
+// }
+// var y = showOverlayClickHandler(photoCards, labels);
+// console.log(y);
+
+// console.log(fragmentOverlay.content);
 
 
