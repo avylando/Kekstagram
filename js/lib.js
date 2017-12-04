@@ -44,7 +44,7 @@
       if (!lib.findClass(elem, 'hidden') && evt.keyCode === lib.ESC_KEYCODE || evt.keyCode === lib.ENTER_KEYCODE) {
         elem.classList.add('hidden');
       }
-    }
+    },
   }
 
 })();

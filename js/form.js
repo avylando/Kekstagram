@@ -26,7 +26,7 @@
     uploadOverlay.classList.remove('hidden');
   })
 
-  cancelButton/addEventListener('click', clickFormClose);
+  cancelButton.addEventListener('click', clickFormClose);
 
   cancelButton.addEventListener('keydown', escFormClose);
 
@@ -46,16 +46,37 @@
 
   // Setup filters
 
-  var imagePreview = uploadForm.querySelectorAll('.effect-image-preview');
+  var filterControls = uploadForm.querySelector('.upload-effect-controls');
+  var imagePreview = uploadForm.querySelector('.effect-image-preview');
   var filterButtons = uploadForm.querySelectorAll('input[name="effect"]');
-  console.log(filterButtons);
+  var filterClasses = [];
+  var filterClass = null;
 
-  for (var i = 0; i < filterButtons.length; i++) {
-    filterButtons[i].addEventListener('change', function (evt) {
-      if (filterButtons[i].checked) {
-        imagePreview.classList.add('' + filterButtons[i].name + '-' + filterButtons[i].value);
+  (function () {
+    for (var i = 0; i < filterButtons.length; i++) {
+      filterClass = (filterButtons[i].name + '-' + filterButtons[i].value).toString();
+      filterClasses[i] = filterClass;
+    }
+  })();
+
+
+  var addFilterByClass = function (elem, className, evt) {
+    for (var i = 0; i < filterClasses.length; i++) {
+      if (imagePreview.classList.contains(filterClasses[i]) && filterClasses[i] !== className) {
+        imagePreview.classList.remove(filterClasses[i]);
       }
-    })
+    }
+
+    elem.classList.add(className);
   }
+
+  filterControls.addEventListener('click', function (evt) {
+    console.log(evt.target.tagName.toLowerCase());
+    if (evt.target.tagName.toLowerCase() === 'input') {
+      var filterClassActive = (evt.target.name + '-' + evt.target.value).toString();
+
+      addFilterByClass(imagePreview, filterClassActive, evt);
+    }
+  }, true);
 
 })();
