@@ -17,6 +17,14 @@
       return output;
     },
 
+    showElement: function (elem) {
+      elem.classList.remove('hidden');
+    },
+
+    hideElement: function (elem) {
+      elem.classList.add('hidden');
+    },
+
     findClass: function (element, className) {
       return element.classList.contains(className);
     },
