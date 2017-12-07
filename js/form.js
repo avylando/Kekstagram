@@ -7,7 +7,6 @@
   var uploadButton = document.querySelector('#upload-file');
   var uploadForm = document.querySelector('.upload-form');
   var uploadOverlay = uploadForm.querySelector('.upload-overlay');
-  // var uploadMessage = uploadForm.querySelector('.upload-message');
   var cancelButton = uploadForm.querySelector('.upload-form-cancel');
   var inputComment = uploadForm.querySelector('.upload-form-description');
 
@@ -119,7 +118,7 @@
   }, true);
 
 
-  // Filter toggle drop
+  // Filter toggle drag
 
   var scaleWidth = 455;
   var percentScale = 4.55;
@@ -133,8 +132,6 @@
       x: evt.clientX,
       y: evt.clientY
     }
-
-    console.log(startCoords);
 
     var pinMouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
@@ -203,53 +200,20 @@
   var buttonSizeInc = uploadForm.querySelector('.upload-resize-controls-button-inc');
   var sizeValueField = uploadForm.querySelector('.upload-resize-controls-value');
 
+
   // Set default size value
   sizeValueField.value = '100%';
   sizeValueField.setAttribute('value', '100%');
 
   // Size controls events
 
-  var sizeValueStep = parseInt(sizeValueField.step);
-  var sizeValueMin = parseInt(sizeValueField.min);
-  var sizeValueMax = parseInt(sizeValueField.max);
-  var sizeValueNumber = null;
-
-
-  var imageResizer = function () {
-    switch (sizeValueField.value) {
-      case '25%': imagePreview.style.transform = 'scale(0.25)';
-        break;
-      case '50%': imagePreview.style.transform = 'scale(0.5)';
-        break;
-      case '75%': imagePreview.style.transform = 'scale(0.75)';
-        break;
-      case '100%': imagePreview.style.transform = 'scale(1)';
-        break;
-      default: imagePreview.style.transform = 'scale(1)';
-    }
+  var adjustScale = function (scale) {
+    imagePreview.style.transform = 'scale(' + scale / 100 + ')';
+    sizeValueField.value = scale + '%';
+    sizeValueField.setAttribute('value', scale + '%');
   };
 
-  buttonSizeDec.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    sizeValueNumber = parseInt(sizeValueField.value);
-    if (sizeValueNumber > sizeValueMin && sizeValueNumber <= sizeValueMax) {
-      sizeValueField.value = (sizeValueNumber - sizeValueStep + '%');
-      sizeValueField.setAttribute('value', sizeValueField.value);
-      imageResizer();
-    }
-
-  })
-
-  buttonSizeInc.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    sizeValueNumber = parseInt(sizeValueField.value);
-    if (sizeValueNumber >= sizeValueMin && sizeValueNumber < sizeValueMax) {
-      sizeValueField.value = (sizeValueNumber + sizeValueStep + '%');
-      sizeValueField.setAttribute('value', sizeValueField.value);
-      imageResizer();
-    }
-  })
-
+  window.initializeScale(buttonSizeDec, buttonSizeInc, adjustScale);
 
   // // Comment field validation
 
