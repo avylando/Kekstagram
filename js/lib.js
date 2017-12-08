@@ -29,6 +29,15 @@
       return element.classList.contains(className);
     },
 
+    getFieldValuesFromArray: function (arr) {
+      var fieldValues = [];
+      for (var i = 0; i < arr.length; i++) {
+        var fieldValue = arr[i].getAttribute('value');
+        fieldValues[i] = fieldValue;
+      }
+      return fieldValues;
+    },
+
     showHideToggle: function (elemToggle, elemSet, evt) {
       if (evt.currentTarget === elemToggle && lib.findClass(elemSet, 'hidden') || evt.keyCode === lib.ENTER_KEYCODE) {
         elemSet.classList.remove('hidden');
