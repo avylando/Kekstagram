@@ -85,10 +85,10 @@
   // Hide scale by default
 
   var filterScale = uploadForm.querySelector('.upload-effect-level');
-  var numberScale = filterScale.querySelector('.upload-effect-level-value');
+  var effectLevel = filterScale.querySelector('.upload-effect-level-value');
 
   window.lib.hideElement(filterScale);
-  window.lib.hideElement(numberScale);
+  window.lib.hideElement(effectLevel);
 
 
   // Filter toggle drag
@@ -169,6 +169,22 @@
         }
       };
     }
+  })
+
+  // Form submit
+
+  var loadPhoto = function (message) {
+    console.log(message);
+  }
+
+  var errorLoadingPhoto = function (message) {
+    console.log(message);
+  }
+
+  uploadForm.addEventListener('submit', function (evt) {
+    var formData = new FormData(uploadForm);
+    window.backend.save(formData, loadPhoto, errorLoadingPhoto);
+    evt.preventDefault();
   })
 
 })();

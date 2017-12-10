@@ -56,6 +56,7 @@
     var percentScale = 4.55;
     var minScaleValue = 0;
     var maxScaleValue = 100;
+    var effectLevel = document.querySelector('input[name="effect-level"]');
 
     toggle.addEventListener('mousedown', function (evt) {
       evt.preventDefault();
@@ -77,6 +78,7 @@
 
         toggle.style.left = ((toggle.offsetLeft - shift.x) / percentScale) + '%';
         scaleLevel.style.width = toggle.style.left;
+        effectLevel.value = Math.floor((toggle.offsetLeft - shift.x) / percentScale);
 
         var toggleOffsetPercent = parseInt(toggle.style.left);
 
