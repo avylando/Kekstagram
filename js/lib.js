@@ -62,6 +62,69 @@
         elem.classList.add('hidden');
       }
     },
+
+    // from keksobooking
+
+    getRandomValue: function (array) {
+      var randomIndex = Math.floor(Math.random() * array.length);
+      return array[randomIndex];
+    },
+
+    getValueInRange: function (min, max) {
+      return Math.round(Math.random() * (max - min) + min);
+    },
+
+    getUniqueValues: function (array) {
+      var filteredArray = array.filter(function (it, i) {
+        return array.indexOf(it) === i;
+      });
+      return filteredArray;
+    },
+
+    findClass: function (element, className) {
+      return element.classList.contains(className);
+    },
+
+    addClassToAll: function (array, className) {
+      array.forEach(function (elem) {
+        elem.classList.add(className);
+      });
+    },
+
+    addClassToRandom: function (array, className, number) {
+      for (var i = 0; i < number; i++) {
+        var randomIndex = Math.floor(Math.random() * array.length);
+        array[randomIndex].classList.add(className);
+      }
+    },
+
+    removeClassFromAll: function (array, className) {
+      array.forEach(function (elem) {
+        elem.classList.remove(className);
+      });
+    },
+
+    removeClassFromRandom: function (array, className, number) {
+      for (var i = 0; i < number; i++) {
+        if (i < array.length) {
+          var randomIndex = Math.floor(Math.random() * array.length);
+          if (array[randomIndex].classList.contains(className)) {
+            array[randomIndex].classList.remove(className);
+          } else {
+            --i;
+          }
+        } else {
+          break;
+        }
+
+      }
+    },
+
+    removeElementsAttribute: function (array, attribute) {
+      array.forEach(function (elem) {
+        elem.removeAttribute(attribute);
+      });
+    }
   }
 
 })();
