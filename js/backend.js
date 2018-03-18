@@ -3,7 +3,7 @@
 (function () {
   window.backend = {
     load: function (onLoad, onError) {
-      var URL = 'https://1510.dump.academy/kekstagram/data';
+      var URL = 'assets/getdata.php?data';
       var xhr = new XMLHttpRequest();
 
       xhr.addEventListener('load', function () {

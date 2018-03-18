@@ -1,0 +1,16 @@
+CREATE DATABASE kekstagram_db;
+
+USE kekstagram_db;
+
+CREATE TABLE photo (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  url VARCHAR(255) NOT NULL,
+  likes INT NOT NULL DEFAULT 0
+);
+
+CREATE TABLE comment (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  message VARCHAR(255) NOT NULL,
+  photo_id INT NOT NULL,
+  CONSTRAINT FKCommentPhoto FOREIGN KEY (photo_id) REFERENCES photo(id)
+);
