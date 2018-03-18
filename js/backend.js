@@ -31,7 +31,7 @@
         onError('Истек таймаут ожидания ответа от сервера');
       });
 
-      xhr.timeout = 5000;
+      xhr.timeout = 10000;
       xhr.open('GET', URL);
       xhr.send();
     },

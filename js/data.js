@@ -8,7 +8,6 @@
 
   var loadPhotos = function (data) {
     var photos = data;
-    console.log(photos);
 
     // Create PhotoCards from template
 
@@ -64,8 +63,27 @@
   }
 
   var errorLoad = function (message) {
-    console.log(message);
-  }
+    var errorPopup = document.createElement('div');
+    // Popup position
+    errorPopup.style.position = 'absolute';
+    errorPopup.style.left = '40px';
+    errorPopup.style.top = '20px';
+    errorPopup.style.zIndex = '100';
+    // Popup style
+    errorPopup.style.width = '150px';
+    errorPopup.style.padding = '10px';
+    errorPopup.style.backgroundColor = 'red';
+    errorPopup.style.opacity = '0.7';
+    errorPopup.style.borderRadius = '10px';
+    // Popup font style
+    errorPopup.style.fontSize = '12px';
+    errorPopup.style.color ='#ffffff';
+    errorPopup.style.textAlign = 'center';
+    //
+    errorPopup.textContent = message;
+
+    document.body.insertAdjacentElement('afterbegin', errorPopup);
+  };
 
   window.backend.load(loadPhotos, errorLoad);
 
