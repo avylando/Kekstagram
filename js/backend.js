@@ -37,10 +37,9 @@
     },
 
     save: function (data, onLoad, onError) {
-      var URL = 'https://1510.dump.academy/kekstagram';
+      var URL = 'assets/setdata.php';
       var xhr = new XMLHttpRequest();
 
-      xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
         switch (xhr.status) {
           case 200:
@@ -59,8 +58,9 @@
         onError('Истек таймаут ожидания ответа от сервера');
       });
 
-      xhr.timeout = 5000;
+      xhr.timeout = 10000;
       xhr.open('POST', URL);
+      xhr.setRequestHeader('accept', 'application/json');
       xhr.send(data);
     }
   }

@@ -4,6 +4,7 @@
 
   var uploadInput = document.querySelector('#upload-file');
   var imagePreview = document.querySelector('.upload-form-preview img');
+  var progress = document.querySelector(".upload__progress");;
 
   var MIME_TYPES = ['image/jpeg', 'image/png','image/gif'];
 
@@ -21,10 +22,24 @@
 
     if (checkValidity(uploadFile, MIME_TYPES)) {
       var reader = new FileReader();
+      progress.style.display = 'block';
+      imagePreview.src = imagePreview.getAttribute('data-default');
+      reader.addEventListener('progress', function (event) {
+        if (event.lengthComputable) {
+          var percent = parseInt(((event.loaded / event.total) * 100), 10);
+          // var time = event.total;
+          progress.max = 100;
+          progress.value = percent;
+        }
+      });
 
       reader.addEventListener('load', function () {
         imagePreview.src = reader.result;
+        if (progress.value === progress.max) {
+          progress.style.display = 'none';
+        }
       })
+
 
       reader.readAsDataURL(uploadFile);
     } else {

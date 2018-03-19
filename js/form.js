@@ -174,7 +174,8 @@
   // Form submit
 
   var loadPhoto = function (message) {
-    console.log(message);
+    clickFormClose();
+    window.data.updatePhotos();
   }
 
   var errorLoadingPhoto = function (message) {

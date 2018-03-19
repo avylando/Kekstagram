@@ -22,10 +22,12 @@
       window.lib.hideElement(filterScale);
 
       var defaultFilterValue = '20%';
+
       var setFilterEffectsDefault = function (effect, coefficient, unit) {
+
         filterToggle.style.left = defaultFilterValue;
         scaleLevel.style.width = defaultFilterValue;
-        return image.style.filter = effect + '(' + (parseInt(defaultFilterValue) / coefficient) + unit + ')';
+        return image.style.filter = effect + '(' + (parseInt(defaultFilterValue, 10) / coefficient) + unit + ')';
       };
 
       if (filter.value !== 'none') {
