@@ -25,9 +25,9 @@
     <label for="filter-random" class="filters-item">Случайные</label>
   </form>
 
-  <form class="upload-form" id="upload-select-image" action="https://js.dump.academy/kekstagram" method="post" enctype="multipart/form-data" autocomplete="off">
+  <form class="upload-form" id="upload-select-image" action="assets/setdata.php" method="post" enctype="multipart/form-data" autocomplete="off">
     <div class="upload-image">
-      <input type="file" id="upload-file" class="upload-input" name="filename" required>
+      <input type="file" id="upload-file" class="upload-input" name="image" required>
       <label class="upload-file upload-control" for="upload-file"></label>
     </div>
 
@@ -48,8 +48,8 @@
           </fieldset>
 
           <div class="upload-form-preview">
-            <div></div>
-            <img src="img/upload-default-image.jpg" class="effect-image-preview">
+            <progress class="upload__progress" value="0"></progress>
+            <img src="img/upload-default-image.jpg" class="effect-image-preview" id="processed-img" width="587" height="587" data-default="img/upload-default-image.jpg">
           </div>
 
           <fieldset class="upload-effect-controls">
@@ -100,10 +100,10 @@
 
           <input class="upload-form-hashtags" name="hashtags" placeholder="#хэш-тег">
 
-          <textarea class="upload-form-description" name="description" placeholder="Ваш комментарий..." maxlength="140"></textarea>
+          <textarea class="upload-form-description" name="comment" placeholder="Ваш комментарий..." maxlength="140"></textarea>
 
           <button class="upload-form-cancel" type="reset" id="upload-cancel"><span class="hidden">Закрыть</span></button>
-          <button class="upload-form-submit" type="submit" id="upload-submit">Отправить</button>
+          <button class="upload-form-submit" type="submit" id="upload-submit" name="send">Отправить</button>
         </div>
       </div>
     </div>
@@ -114,6 +114,7 @@
   </form>
 
   <div class="pictures container" style="font-size: 12px;"></div>
+  <div class="overlay__container"></div>
 
   <footer class="footer container">
     <div class="center-wrapper">
@@ -139,13 +140,14 @@
   <div class="gallery-overlay hidden">
     <span class="gallery-overlay-close">&times;</span>
     <div class="gallery-overlay-preview">
-      <img src="" class="gallery-overlay-image" alt="">
+      <img src="" class="gallery-overlay-image" alt="" width="587" height="587">
       <div class="gallery-overlay-controls">
         <div class="gallery-overlay-controls-like">Нравится
           <span class="likes-count">0</span>
         </div>
         <div class="gallery-overlay-controls-comments">
-          <span class="comments-count">125</span> комментариев</div>
+          <h3><span class="comments-count">125</span> <span class="comments-sub">комментариев</span></h3>
+        </div>
       </div>
     </div>
   </div>
@@ -160,6 +162,7 @@
     </a>
   </template>
 
+  <script src="js/caman.full.js"></script>
   <script src="js/lib.js"></script>
   <script src="js/backend.js"></script>
   <script src="js/show-photos.js"></script>

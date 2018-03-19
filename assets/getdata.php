@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['data'])) {
           (SELECT GROUP_CONCAT(comment.message SEPARATOR '&&') FROM comment
           WHERE photo.id = comment.photo_id) AS comments
           FROM photo
-          GROUP BY photo.id ORDER BY likes DESC
+          GROUP BY photo.id ORDER BY creation_date DESC
           LIMIT 26";
 
   $result = mysqli_query($db_link, $sql);

@@ -83,6 +83,10 @@ body {
   border: 0;
 }
 
+.upload-form-preview {
+  position: relative;
+}
+
 .upload-overlay {
   position: fixed;
   top: 0;
@@ -107,6 +111,38 @@ body {
   height: 569px;
 
   background: url("../img/logo-mask.png") no-repeat center;
+}
+
+::-webkit-progress-bar {
+  background: #ffffff;
+}
+::-webkit-progress-value {
+  background: #ffe753;
+}
+::-moz-progress-bar {
+  background: #ffe753;
+}
+.upload__progress {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  color: #ffe753;
+  background: #ffffff;
+  border: 2px solid #ffe753;
+  border-radius: 12px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 250px;
+  height: 15px;
+  line-height: 21px;
+  font-size: 15px;
+  font-family: sans-serif;
+  text-align: center;
+  z-index: 10;
 }
 
 .upload-effect {
@@ -735,19 +771,29 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   font-weight: bold;
   font-size: 14px;
   color: #000000;
+  padding-top: 15px;
 }
 
 .gallery-overlay-controls-comments,
 .gallery-overlay-controls-like {
   padding: 0 20px;
 
-  line-height: 40px;
+  line-height: 20px;
 }
 
 .gallery-overlay-controls-comments {
   margin-right: 150px;
 
   text-align: left;
+}
+
+.gallery-overlay-controls-comments h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.gallery-comment {
+  margin-bottom: 15px;
 }
 
 .gallery-overlay-controls-like {
