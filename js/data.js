@@ -25,20 +25,21 @@
   var updateComments = function (params) {
 
     window.backend.load(function (obj) {
-      var card = document.querySelector('div[data-id="' + obj.id + '"]'),
+      console.log(obj);
+
+      var card = document.querySelector('div[data-id="' + obj.photo_id + '"]'),
           commentsBlock = card.querySelector('.gallery-overlay-controls-comments'),
-          commentCounter = card.querySelector('.comments-count');
-          commentsCount = elem.comments[0] === "" ? 0 : elem.comments.length;
-      likeCounter.textContent = commentsCount;
+          commentCounter = card.querySelector('.comments-count'),
+          commentsCount = parseInt(commentCounter.textContent, 10) + 1;
 
-      commentsBlock.querySelector('.comments-sub').textContent = window.lib.setEndings(commentsCount, ['комментарий', 'комментария', 'комментариев']);
+      commentCounter.textContent = commentsCount;
 
-      obj.comments.forEach(function(com) {
-        var comment = document.createElement('div');
-        comment.className = 'gallery-comment';
-        comment.textContent = com;
-        commentsBlock.insertAdjacentElement('beforeEnd', comment);
-      })
+      commentsBlock.querySelector('.comments-sub').textContent = window.lib.setEndings(commentsCount, [' комментарий', ' комментария', ' комментариев']);
+
+      var comment = document.createElement('div');
+      comment.className = 'gallery-comment';
+      comment.textContent = obj.message;
+      commentsBlock.insertAdjacentElement('beforeEnd', comment);
     },
     function () {console.log('Ошибка')},
     params);
@@ -104,9 +105,8 @@
       })
 
       var commentsCount = elem.comments[0] === "" ? 0 : elem.comments.length;
-      console.log(elem);
       commentsBlock.querySelector('.comments-count').textContent = commentsCount;
-      commentsBlock.querySelector('.comments-sub').textContent = window.lib.setEndings(commentsCount, ['комментарий', 'комментария', 'комментариев']);
+      commentsBlock.querySelector('.comments-sub').textContent = window.lib.setEndings(commentsCount, [' комментарий', ' комментария', ' комментариев']);
 
       photoCardInOverlay.querySelector('.gallery-overlay-controls-like .likes-count').textContent = elem.likes;
       photoCardInOverlay.querySelector('.gallery-overlay-close').setAttribute('tabindex', '0');
@@ -121,7 +121,7 @@
 
       commentForm.addEventListener('submit', function (evt) {
         var formData = new FormData(commentForm);
-        window.backend.save(formData, updateCounter, errorLoad, 'POST', '?comment&id=' + elem.id);
+        window.backend.save(formData, updateComments, errorLoad, 'POST', '?comment&id=' + elem.id);
         evt.preventDefault();
       });
 

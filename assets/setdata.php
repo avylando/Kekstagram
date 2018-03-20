@@ -38,11 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
-  if (isset($_POST['add-comment'])) {
+  if (isset($_POST['comment'])) {
     $message = $_POST;
-
+    // print_r($message);
     $id = intval($message['id']);
-    $comment = mysqli_real_escape_string($message['comment']);
+    $comment = mysqli_real_escape_string($db_link, $message['comment']);
 
     $result = add_comment($db_link, $comment, $id);
 

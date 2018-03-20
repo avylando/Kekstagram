@@ -152,7 +152,7 @@
         <div class="gallery-overlay-controls-comments">
           <h3><span class="comments-count">125 </span><span class="comments-sub" data-comment-sub=''>комментариев</span></h3>
         </div>
-        <form class='comment-form' action="assets/setdata.php?comment" method='get'>
+        <form class='comment-form' action="assets/setdata.php?comment" method='post'>
           <textarea class="comment-textarea" name="comment" id=""></textarea>
           <input class="photo-id" type="number" name="id" value="" hidden>
           <button class="comment-button" type="submit" name='add-comment'>Добавить комментарий</button>

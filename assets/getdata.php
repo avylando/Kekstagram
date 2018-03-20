@@ -57,8 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
   if (isset($_GET['comment'])) {
     $comment = $_GET;
-
-    $sql = "SELECT message, photo_id FROM comment WHERE photo_id = " . intval($comment['id']);
+    print($comment_id);
+    $sql = "SELECT message, photo_id FROM comment
+            WHERE photo_id = " .intval($comment['id']). " ORDER BY id DESC LIMIT 1";
 
     $result = mysqli_query($db_link, $sql);
 
@@ -66,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       print(mysqli_error($db_link));
     }
 
-    $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $array = mysqli_fetch_assoc($result);
     $response = json_encode($array);
 
     echo $response;
