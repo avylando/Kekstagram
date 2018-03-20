@@ -103,7 +103,7 @@
           <textarea class="upload-form-description" name="comment" placeholder="Ваш комментарий..." maxlength="140"></textarea>
 
           <button class="upload-form-cancel" type="reset" id="upload-cancel"><span class="hidden">Закрыть</span></button>
-          <button class="upload-form-submit" type="submit" id="upload-submit" name="send">Отправить</button>
+          <button class="upload-form-submit" type="submit" id="upload-submit" name="add-photo">Отправить</button>
         </div>
       </div>
     </div>
@@ -137,17 +137,26 @@
   </footer>
 
 
-  <div class="gallery-overlay hidden">
+  <div class="gallery-overlay hidden" data-id=''>
     <span class="gallery-overlay-close">&times;</span>
     <div class="gallery-overlay-preview">
       <img src="" class="gallery-overlay-image" alt="" width="587" height="587">
       <div class="gallery-overlay-controls">
-        <div class="gallery-overlay-controls-like">Нравится
-          <span class="likes-count">0</span>
+        <div class="gallery-overlay-controls-like">
+          <span>Нравится</span>
+          <form class='like-form' action='assets/setdata.php?like' method='get' style="display: inline-block;">
+            <button class="likes-button" type="submit"></button>
+            <span class="likes-count">0</span>
+          </form>
         </div>
         <div class="gallery-overlay-controls-comments">
-          <h3><span class="comments-count">125</span> <span class="comments-sub">комментариев</span></h3>
+          <h3><span class="comments-count">125 </span><span class="comments-sub" data-comment-sub=''>комментариев</span></h3>
         </div>
+        <form class='comment-form' action="assets/setdata.php?comment" method='get'>
+          <textarea class="comment-textarea" name="comment" id=""></textarea>
+          <input class="photo-id" type="number" name="id" value="" hidden>
+          <button class="comment-button" type="submit" name='add-comment'>Добавить комментарий</button>
+        </form>
       </div>
     </div>
   </div>
@@ -156,7 +165,6 @@
     <a href="" class="picture">
       <img src="" width="182" height="182">
       <span class="picture-stats">
-        <span class="picture-stat picture-comments"></span>
         <span class="picture-stat picture-likes"></span>
       </span>
     </a>

@@ -7,32 +7,68 @@ if (!$db_link) {
   exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['data'])) {
-  $sql = "SELECT photo.id, url, likes,
-          (SELECT GROUP_CONCAT(comment.message SEPARATOR '&&') FROM comment
-          WHERE photo.id = comment.photo_id) AS comments
-          FROM photo
-          GROUP BY photo.id ORDER BY creation_date DESC
-          LIMIT 26";
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  if (isset($_GET['data'])) {
+    $sql = "SELECT photo.id, url, likes,
+              (SELECT GROUP_CONCAT(comment.message SEPARATOR '&&') FROM comment
+              WHERE photo.id = comment.photo_id) AS comments
+              FROM photo
+              GROUP BY photo.id ORDER BY creation_date DESC
+              LIMIT 26";
 
-  $result = mysqli_query($db_link, $sql);
+    $result = mysqli_query($db_link, $sql);
 
-  if (!$result) {
-    print(mysqli_error($db_link));
-    exit();
+    if (!$result) {
+      print(mysqli_error($db_link));
+      exit();
+    }
+
+    $data = [];
+    $photos = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    // print_r($photos);
+
+    foreach ($photos as &$photo) {
+      $comments = strval($photo['comments']);
+
+      $com_array = explode('&&', $comments);
+      $photo['comments'] = $com_array;
+    }
+
+    $response = json_encode($photos);
+    echo $response;
   }
 
-  $data = [];
-  $photos = mysqli_fetch_all($result, MYSQLI_ASSOC);
-  // print_r($photos);
+  if (isset($_GET['like'])) {
+    $like = $_GET;
 
-  foreach ($photos as &$photo) {
-    $comments = strval($photo['comments']);
+    $sql = "SELECT id, likes FROM photo WHERE id = " . intval($like['id']);
 
-    $com_array = explode('&&', $comments);
-    $photo['comments'] = $com_array;
+    $result = mysqli_query($db_link, $sql);
+
+    if (!$result) {
+      print(mysqli_error($db_link));
+    }
+
+    $array = mysqli_fetch_assoc($result);
+    $response = json_encode($array);
+
+    echo $response;
   }
 
-  $response = json_encode($photos);
-  echo $response;
+  if (isset($_GET['comment'])) {
+    $comment = $_GET;
+
+    $sql = "SELECT message, photo_id FROM comment WHERE photo_id = " . intval($comment['id']);
+
+    $result = mysqli_query($db_link, $sql);
+
+    if (!$result) {
+      print(mysqli_error($db_link));
+    }
+
+    $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $response = json_encode($array);
+
+    echo $response;
+  }
 }

@@ -1,5 +1,6 @@
 <?php
 
+require_once 'mysql_helper.php';
 
 /** Проверка формата изображения (PNG, JPEG)
  * @param string $file Путь к файлу изображения

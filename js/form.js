@@ -188,4 +188,24 @@
     evt.preventDefault();
   })
 
+  // Like submit
+
+  // var updateCounter = function (array) {
+  //   var likeCounter = document.querySelector('.gallery-overlay--card span[data-counter=' + array.id + ']');
+  //   var currentValue = parseInt(likeCounter.textContent, 10);
+  //   // likeCounter.textContent = currentValue++;
+  //   likeCounter.textContent = array.likes;
+  // }
+
+  var likeForms = Array.from(document.querySelectorAll('.like-form'));
+  console.log(likeForms);
+
+  likeForms.forEach(function(form) {
+    form.addEventListener('submit', function (evt) {
+      var formData = new FormData(form);
+      window.backend.save(formData, updateCounter, errorLoadingPhoto, 'GET', '?like');
+      evt.preventDefault();
+    })
+  })
+
 })();

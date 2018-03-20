@@ -2,8 +2,8 @@
 
 (function () {
   window.backend = {
-    load: function (onLoad, onError) {
-      var URL = 'assets/getdata.php?data';
+    load: function (onLoad, onError, params = '') {
+      var URL = 'assets/getdata.php' + params;
       var xhr = new XMLHttpRequest();
 
       xhr.addEventListener('load', function () {
@@ -36,14 +36,15 @@
       xhr.send();
     },
 
-    save: function (data, onLoad, onError) {
-      var URL = 'assets/setdata.php';
+    save: function (data, onLoad, onError, method = 'POST', params = '') {
+      var URL = 'assets/setdata.php' + params;
       var xhr = new XMLHttpRequest();
 
       xhr.addEventListener('load', function () {
+
         switch (xhr.status) {
           case 200:
-            onLoad('Данные формы отправлены!');
+            onLoad(params !== '' ? params : 'Данные отправлены успешно!');
             break;
 
           default: onError('Произошла ошибка: ' + xhr.status);
@@ -59,7 +60,7 @@
       });
 
       xhr.timeout = 10000;
-      xhr.open('POST', URL);
+      xhr.open(method, URL);
       xhr.setRequestHeader('accept', 'application/json');
       xhr.send(data);
     }
