@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $data = [];
     $photos = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    // print_r($photos);
 
     foreach ($photos as &$photo) {
       $comments = strval($photo['comments']);
@@ -57,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
   if (isset($_GET['comment'])) {
     $comment = $_GET;
-    print($comment_id);
+
     $sql = "SELECT message, photo_id FROM comment
             WHERE photo_id = " .intval($comment['id']). " ORDER BY id DESC LIMIT 1";
 

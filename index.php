@@ -100,8 +100,8 @@
 
           <input class="upload-form-hashtags" name="hashtags" placeholder="#хэш-тег">
 
-          <textarea class="upload-form-description" name="comment" placeholder="Ваш комментарий..." maxlength="140"></textarea>
-
+          <textarea class="upload-form-description" name="description" placeholder="Ваш комментарий..." maxlength="140"></textarea>
+          <input type="text" name="photo" value="" hidden>
           <button class="upload-form-cancel" type="reset" id="upload-cancel"><span class="hidden">Закрыть</span></button>
           <button class="upload-form-submit" type="submit" id="upload-submit" name="add-photo">Отправить</button>
         </div>
@@ -137,23 +137,28 @@
   </footer>
 
 
-  <div class="gallery-overlay hidden" data-id=''>
+  <div class="gallery-overlay hidden" data-card-id=''>
     <span class="gallery-overlay-close">&times;</span>
     <div class="gallery-overlay-preview">
       <img src="" class="gallery-overlay-image" alt="" width="587" height="587">
       <div class="gallery-overlay-controls">
-        <div class="gallery-overlay-controls-like">
-          <span>Нравится</span>
-          <form class='like-form' action='assets/setdata.php?like' method='get' style="display: inline-block;">
-            <button class="likes-button" type="submit"></button>
-            <span class="likes-count">0</span>
-          </form>
+        <div class="gallery-overlay-head">
+          <h3 class="gallery-overlay-title">
+          <span class="comments-count">125</span>
+          <span class="comments-sub" data-comment-sub=''>комментариев</span>
+          </h3>
+          <div class="gallery-overlay-controls-like">
+            <span>Нравится</span>
+            <form class='like-form' action='assets/setdata.php?like' method='get' style="display: inline-block;">
+              <button class="likes-button" type="submit"></button>
+              <span class="likes-count">0</span>
+            </form>
+          </div>
         </div>
         <div class="gallery-overlay-controls-comments">
-          <h3><span class="comments-count">125 </span><span class="comments-sub" data-comment-sub=''>комментариев</span></h3>
         </div>
         <form class='comment-form' action="assets/setdata.php?comment" method='post'>
-          <textarea class="comment-textarea" name="comment" id=""></textarea>
+          <textarea class="comment-textarea" name="comment" minlength="1" maxlength="255" required></textarea>
           <input class="photo-id" type="number" name="id" value="" hidden>
           <button class="comment-button" type="submit" name='add-comment'>Добавить комментарий</button>
         </form>

@@ -9,7 +9,7 @@ if (!$db_link) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_POST['add-photo'])) {
+  if (isset($_POST['photo'])) {
     $photo = $_POST;
 
     if (is_uploaded_file($_FILES['image']['tmp_name'])) {
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $photo_id = mysqli_insert_id($db_link);
 
-    $res2 = add_comment($db_link, $photo['comment'], $photo_id);
+    $res2 = add_comment($db_link, $photo['description'], $photo_id);
 
     if ($res1 && $res2) {
       mysqli_query($db_link, "COMMIT");
@@ -40,17 +40,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if (isset($_POST['comment'])) {
     $message = $_POST;
-    // print_r($message);
-    $id = intval($message['id']);
-    $comment = mysqli_real_escape_string($db_link, $message['comment']);
 
-    $result = add_comment($db_link, $comment, $id);
+    if (!empty($message['comment'])) {
+      $id = intval($message['id']);
+      $comment = mysqli_real_escape_string($db_link, $message['comment']);
 
-    if (!$result) {
-      print(mysqli_error($db_link));
+      $result = add_comment($db_link, $comment, $id);
+
+      if (!$result) {
+        print(mysqli_error($db_link));
+      }
     }
   }
-
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['like'])) {
