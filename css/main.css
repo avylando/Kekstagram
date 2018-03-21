@@ -714,10 +714,10 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   .picture:nth-child(1) {
     margin-right: 600px;
   }
-  .picture:nth-child(2) {
+  .picture:nth-child(3) {
     margin-right: 600px;
   }
-  .picture:nth-child(3) {
+  .picture:nth-child(5) {
     margin-right: 600px;
   }
 }
